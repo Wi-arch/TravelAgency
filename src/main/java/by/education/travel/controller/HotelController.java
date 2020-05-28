@@ -45,7 +45,7 @@ public class HotelController {
         if (hotel == null) {
             return new ResponseEntity<>(BAD_REQUEST);
         }
-        hotelService.saveHotel(hotel);
+        hotel = hotelService.saveHotel(hotel);
         return new ResponseEntity<>(hotel, CREATED);
     }
 
