@@ -45,7 +45,7 @@ public class OrderController {
         if (order == null) {
             return new ResponseEntity<>(BAD_REQUEST);
         }
-        orderService.saveOrder(order);
+        order = orderService.saveOrder(order);
         return new ResponseEntity<>(order, CREATED);
     }
 

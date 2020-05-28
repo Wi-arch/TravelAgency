@@ -45,7 +45,7 @@ public class TourController {
         if (tour == null) {
             return new ResponseEntity<>(BAD_REQUEST);
         }
-        tourService.saveTour(tour);
+        tour = tourService.saveTour(tour);
         return new ResponseEntity<>(tour, CREATED);
     }
 
