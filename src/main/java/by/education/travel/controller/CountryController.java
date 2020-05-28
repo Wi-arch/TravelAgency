@@ -45,7 +45,7 @@ public class CountryController {
         if (country == null) {
             return new ResponseEntity<>(BAD_REQUEST);
         }
-        countryService.saveCountry(country);
+        country = countryService.saveCountry(country);
         return new ResponseEntity<>(country, CREATED);
     }
 
