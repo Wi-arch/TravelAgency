@@ -45,7 +45,7 @@ public class UserController {
         if (user == null) {
             return new ResponseEntity<>(BAD_REQUEST);
         }
-        userService.saveUser(user);
+        user = userService.saveUser(user);
         return new ResponseEntity<>(user, CREATED);
     }
 
