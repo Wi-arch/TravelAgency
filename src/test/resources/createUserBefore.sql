@@ -1,9 +1,6 @@
-delete from bank_user;
-delete from user_role;
+delete from user;
 
-insert into user_role (user_role_value) values ('Admin');
-insert into user_role (user_role_value) values ('User');
-insert into bank_user (`bank_user_login`, `bank_user_activation_link`, `bank_user_email`, `bank_user_is_account_activeted`, `bank_user_is_blocked`, `user_role`, `bank_user_password`)
- VALUES ('Login123', 'ActivationLink', 'Login123@gmail.com', true, false, 'User', 'Password12345');
-insert into bank_user (`bank_user_login`, `bank_user_activation_link`, `bank_user_email`, `bank_user_is_account_activeted`, `bank_user_is_blocked`, `user_role`, `bank_user_password`)
-VALUES ('LoginAdmin123', 'ActivationLinkAdmin', 'LoginAdmin123@gmail.com', true, false, 'Admin', 'PasswordAdmin12345');
+insert into user (`id`, `user_name`, `user_surname`) VALUES (2, 'test_user_name_AAA', 'test_user_surname_AAA');
+insert into user (`id`, `user_name`, `user_surname`) VALUES (3, 'test_user_name_BBB', 'test_user_surname_BBB');
+insert into user (`id`, `user_name`, `user_surname`) VALUES (4, 'test_user_name_CCC', 'test_user_surname_CCC');
+insert into user (`id`, `user_name`, `user_surname`) VALUES (5, 'test_user_name_DDD', 'test_user_surname_DDD');
