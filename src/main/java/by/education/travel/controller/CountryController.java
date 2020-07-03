@@ -2,8 +2,8 @@ package by.education.travel.controller;
 
 import by.education.travel.entity.Country;
 import by.education.travel.service.CountryService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +14,10 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @RequestMapping("/country/")
 @Slf4j
+@RequiredArgsConstructor
 public class CountryController {
 
-    @Autowired
-    private CountryService countryService;
+    private final CountryService countryService;
 
     @GetMapping("{id}")
     public ResponseEntity<Country> getCountryById(@PathVariable("id") int id) {
