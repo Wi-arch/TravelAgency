@@ -2,8 +2,8 @@ package by.education.travel.controller;
 
 import by.education.travel.entity.Hotel;
 import by.education.travel.service.HotelService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +14,10 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @RequestMapping("/hotel/")
 @Slf4j
+@RequiredArgsConstructor
 public class HotelController {
 
-    @Autowired
-    private HotelService hotelService;
+    private final HotelService hotelService;
 
     @GetMapping("{id}")
     public ResponseEntity<Hotel> getHotelById(@PathVariable("id") int id) {

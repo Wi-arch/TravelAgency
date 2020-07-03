@@ -2,8 +2,8 @@ package by.education.travel.controller;
 
 import by.education.travel.entity.Tour;
 import by.education.travel.service.TourService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +14,10 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @RequestMapping("/tour/")
 @Slf4j
+@RequiredArgsConstructor
 public class TourController {
 
-    @Autowired
-    private TourService tourService;
+    private final TourService tourService;
 
     @GetMapping("{id}")
     public ResponseEntity<Tour> getTourById(@PathVariable("id") int id) {

@@ -2,8 +2,8 @@ package by.education.travel.controller;
 
 import by.education.travel.entity.Order;
 import by.education.travel.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +14,10 @@ import static org.springframework.http.HttpStatus.*;
 @RestController
 @RequestMapping("/order/")
 @Slf4j
+@RequiredArgsConstructor
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @GetMapping("{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable("id") int id) {
