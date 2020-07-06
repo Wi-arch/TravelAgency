@@ -1,6 +1,7 @@
 package by.education.travel.controller;
 
 import by.education.travel.entity.User;
+import by.education.travel.exception.InvalidSpecificationException;
 import by.education.travel.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -37,6 +39,8 @@ public class UserControllerTest {
     private static final String URL_TEMPLATE = "/user/";
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+    private static final Random RANDOM = new Random();
 
     @Test
     public void testGetUserById() throws Exception {
@@ -112,6 +116,32 @@ public class UserControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    public void testFindBySpecificationPositive() throws Exception {
+        String specification = "id:1";
+        List<User> result = new ArrayList<>();
+        result.add(buildValidUser(1));
+        String expectedContent = convertToJsonString(result);
+        when(userService.findBySpecification(specification)).thenReturn(result);
+        mockMvc.perform(get(URL_TEMPLATE + "specification/" + specification))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(content().string(expectedContent));
+        verify(userService, times(1)).findBySpecification(specification);
+    }
+
+    @Test
+    public void testFindBySpecificationNegativeEmptySpecification() throws Exception {
+        String specification = " ";
+        when(userService.findBySpecification(specification))
+                .thenThrow(new InvalidSpecificationException("Invalid specification", specification));
+        mockMvc.perform(get(URL_TEMPLATE + "specification/" + specification))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+        verify(userService, times(1)).findBySpecification(specification);
+    }
+
     private String convertToJsonString(Object object) {
         try {
             return OBJECT_MAPPER.writeValueAsString(object);
@@ -125,6 +155,7 @@ public class UserControllerTest {
         user.setId(id);
         user.setName("Test name");
         user.setSurname("Test surname");
+        user.setAge(RANDOM.nextInt(50) + 18);
         return user;
     }
 }

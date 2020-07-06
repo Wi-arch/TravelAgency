@@ -1,12 +1,16 @@
 package by.education.travel.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "user")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -18,4 +22,7 @@ public class User {
 
     @Column(name = "user_surname", nullable = false)
     private String surname;
+
+    @Column(name = "user_age", nullable = true)
+    private Integer age;
 }

@@ -69,4 +69,14 @@ public class UserController {
         log.info("In updateUser {} successfully updated", user);
         return new ResponseEntity<>(user, OK);
     }
+
+    @GetMapping("specification/{search}")
+    public ResponseEntity<List<User>> findBySpecification(@PathVariable("search") String search) {
+        List<User> users = userService.findBySpecification(search);
+        log.info("In findBySpecification find {}", users);
+        if (users == null || users.isEmpty()) {
+            return new ResponseEntity<>(NOT_FOUND);
+        }
+        return new ResponseEntity<>(users, OK);
+    }
 }
