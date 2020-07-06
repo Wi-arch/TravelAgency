@@ -2,17 +2,21 @@ package by.education.travel.service.impl;
 
 import by.education.travel.entity.User;
 import by.education.travel.repository.UserRepository;
+import by.education.travel.repository.specification.SpecificationsBuilder;
 import by.education.travel.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private static final Pattern PATTERN = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
 
     @Override
     public User saveUser(User user) {
@@ -37,5 +41,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public List<User> findBySpecification(String specification) {
+        SpecificationsBuilder<User> builder = new SpecificationsBuilder<>();
+        Matcher matcher = PATTERN.matcher(specification + ",");
+        while (matcher.find()) {
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+        }
+        return userRepository.findAll(builder.build());
     }
 }
